@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            text-align: center;
+        }
+
+        .navbar {
+            background: #007bff;
+            padding: 12px;
+        }
+
+        .navbar a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 400px;
+            margin: 30px auto;
+        }
+
+        .box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 80px;
+            margin-top: 10px;
+            padding: 8px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .card {
+            background: white;
+            padding: 10px;
+            margin: 10px auto;
+            border-radius: 8px;
+            width: 300px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn {
+            margin: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .edit-btn { color: green; }
+        .delete-btn { color: red; }
+
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="/dashboard">Dashboard</a>
+    <a href="/admin">Admin</a>
+    <a href="/login">Logout</a>
+</div>
+
+<div class="container">
+
+    <h1>User Dashboard</h1>
+
+    <!-- Add Feedback -->
+    <div class="box">
+        <form th:action="@{/add-feedback}" th:object="${feedback}" method="post">
+            <label>Write Feedback</label>
+            <textarea th:field="*{content}" required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <!-- Feedback List -->
+    <h2>Your Feedback</h2>
+
+    <div th:each="item : ${feedbackList}" class="card">
+        <p th:text="${item.content}"></p>
+
+        <a th:href="@{/edit/{id}(id=${item.id})}" class="btn edit-btn">Edit</a>
+        <a th:href="@{/delete/{id}(id=${item.id})}" class="btn delete-btn">Delete</a>
+    </div>
+
+</div>
+
+</body>
+</html>

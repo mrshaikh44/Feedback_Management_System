@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Feedback</title>
+</head>
+<body>
+
+<h2>Edit Feedback</h2>
+
+<form th:action="@{/update}" th:object="${feedback}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <textarea th:field="*{content}"></textarea><br>
+    <button type="submit">Update</button>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+        }
+
+        .navbar {
+            background: #007bff;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .navbar a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 75%;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f1f1f1;
+        }
+
+        .btn {
+            padding: 6px 10px;
+            margin: 2px;
+            text-decoration: none;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .view { background: #17a2b8; }
+        .edit { background: #28a745; }
+        .delete { background: red; }
+
+        .view:hover { background: #117a8b; }
+        .edit:hover { background: #1e7e34; }
+        .delete:hover { background: darkred; }
+
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="/dashboard">Dashboard</a>
+    <a href="/admin">Admin</a>
+    <a href="/login">Logout</a>
+</div>
+
+<div class="container">
+
+    <h1>Admin Dashboard</h1>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Feedback</th>
+            <th>Date</th> <!-- ✅ NEW COLUMN -->
+            <th>Actions</th>
+        </tr>
+
+        <tr th:each="item : ${feedbackList}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.content}"></td>
+
+            <!-- ✅ DATE WITH FORMAT -->
+            <td th:text="${item.date != null ? #temporals.format(item.date, 'dd MMM yyyy') : 'N/A'}"></td>
+
+            <td>
+                <a th:href="@{/admin/view/{id}(id=${item.id})}" class="btn view">View</a>
+                <a th:href="@{/admin/edit/{id}(id=${item.id})}" class="btn edit">Edit</a>
+                <a th:href="@{/admin/delete/{id}(id=${item.id})}" class="btn delete">Delete</a>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>
